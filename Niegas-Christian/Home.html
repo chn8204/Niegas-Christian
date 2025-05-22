@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tanex Yamaha</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f8fafc;
+      margin: 0;
+      padding: 0;
+      color: #1e293b;
+    }
+    .navbar {
+      width: 100%;
+      background: #1e293b;
+      border-radius: 0 0 20px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 16px 0;
+      margin-bottom: 24px;
+    }
+    .navbar a {
+      color: #fff;
+      font-size: 1.3em;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 18px;
+      border-radius: 12px;
+      transition: background 0.2s;
+    }
+    .navbar a:hover {
+      background: #334155;
+    }
+    .main-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto 32px auto;
+      padding: 0 16px;
+    }
+    .intro {
+      flex: 1 1 340px;
+      min-width: 300px;
+    }
+    .intro h1 {
+      font-size: 2.8em;
+      font-family: 'Arial Black', Arial, sans-serif;
+      margin: 0 0 12px 0;
+      color: #1e293b;
+    }
+    .intro p {
+      font-size: 1.25em;
+      margin-bottom: 18px;
+    }
+    .socials {
+      display: flex;
+      gap: 18px;
+      margin-top: 10px;
+    }
+    .social-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #1e293b;
+      font-size: 0.95em;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .social-link:hover {
+      color: #2563eb;
+    }
+    .social-link img {
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 4px;
+      box-shadow: 0 2px 8px #0001;
+      background: #fff;
+    }
+    .featured-model {
+      background: #f1f5f9;
+      border-radius: 30px;
+      border: 2px solid #64748b;
+      padding: 18px;
+      text-align: center;
+      min-width: 320px;
+      max-width: 350px;
+      margin: 0 auto;
+    }
+    .featured-model img {
+      border-radius: 30px;
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    .featured-model-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #1e293b;
+    }
+    .models-section {
+      max-width: 1200px;
+      margin: 0 auto 32px auto;
+      padding: 0 16px;
+    }
+    .models-title {
+      text-align: center;
+      font-size: 2em;
+      font-family: 'Arial Black', Arial, sans-serif;
+      color: #1e293b;
+      margin-bottom: 18px;
+    }
+    .models-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      justify-content: center;
+    }
+    .model-card {
+      background: #f9fafb;
+      border-radius: 20px;
+      border: 2px solid #64748b;
+      padding: 16px 10px;
+      text-align: center;
+      width: 150px;
+      transition: box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .model-card:hover {
+      box-shadow: 0 4px 16px #64748b33;
+      background: #e0e7ef;
+    }
+    .model-card img {
+      border-radius: 20px;
+      width: 120px;
+      height: 80px;
+      object-fit: cover;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+    .model-card-title {
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #1e293b;
+    }
+    .desc-section {
+      background: #f1f5f9;
+      border-radius: 20px;
+      border: 1.5px solid #64748b;
+      max-width: 900px;
+      margin: 32px auto;
+      padding: 24px 28px;
+    }
+    .desc-section h2 {
+      text-align: center;
+      font-size: 1.7em;
+      font-family: 'Arial Black', Arial, sans-serif;
+      color: #1e293b;
+      margin-bottom: 18px;
+    }
+    .desc-section ul {
+      font-size: 1.08em;
+      line-height: 1.7;
+      padding-left: 18px;
+    }
+    /* Modal styles */
+    #reviewModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: #0006;
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    #reviewModal .modal-content {
+      background: #fff;
+      border-radius: 30px;
+      border: 2px solid #64748b;
+      padding: 24px 32px;
+      max-width: 600px;
+      width: 95vw;
+      margin: 40px auto;
+      box-shadow: 0 8px 32px #0003;
+    }
+    #reviewModal img {
+      border-radius: 20px;
+      width: 220px;
+      height: 150px;
+      object-fit: cover;
+      margin-bottom: 12px;
+    }
+    #reviewModal .close-btn {
+      float: right;
+      font-size: 1.5em;
+      background: #e2e8f0;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      margin-top: -12px;
+      margin-right: -12px;
+    }
+    @media (max-width: 900px) {
+      .main-content {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .featured-model {
+        margin-top: 24px;
+      }
+      .models-grid {
+        gap: 14px;
+      }
+      .desc-section {
+        padding: 16px 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="Home.html">HOME</a>
+    <a href="About.html">ABOUT</a>
+    <a href="Contact.html">CONTACT</a>
+    <a href="Support.html">SUPPORT</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="intro">
+      <h1>Yamaha Power</h1>
+      <p>
+        <b>Experience the speed, innovation, and precision of Yamaha Motorcycles.</b><br>
+        Ride with confidence and style, wherever the road takes you.
+      </p>
+      <div class="socials">
+        <a class="social-link" href="https://www.instagram.com/" target="_blank" title="Instagram">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+          Instagram
+        </a>
+        <a class="social-link" href="https://www.facebook.com/" target="_blank" title="Facebook">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+          Facebook
+        </a>
+        <a class="social-link" href="https://twitter.com/" target="_blank" title="Twitter">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter">
+          Twitter
+        </a>
+        <a class="social-link" href="https://www.linkedin.com/" target="_blank" title="LinkedIn">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn">
+          LinkedIn
+        </a>
+      </div>
+    </div>
+    <div class="featured-model">
+      <img src="images/Image2.jpg" alt="Aerox">
+      <div class="featured-model-title">Featured Model</div>
+    </div>
+  </div>
+
+  <!-- Yamaha Models Section -->
+  <section class="models-section">
+    <div class="models-title">Yamaha Models</div>
+    <div class="models-grid">
+      <div class="model-card" onclick="showReview('Aerox', this.querySelector('img'))">
+        <img src="images/image1.jpg" alt="Aerox">
+        <div class="model-card-title">Aerox</div>
+      </div>
+      <div class="model-card" onclick="showReview('NMAX', this.querySelector('img'))">
+        <img src="images/nmax.jpg" alt="NMAX">
+        <div class="model-card-title">NMAX</div>
+      </div>
+      <div class="model-card" onclick="showReview('R15', this.querySelector('img'))">
+        <img src="images/r15.jpg" alt="R15">
+        <div class="model-card-title">R15</div>
+      </div>
+      <div class="model-card" onclick="showReview('MT15', this.querySelector('img'))">
+        <img src="images/MT15.jpg" alt="MT15">
+        <div class="model-card-title">MT15</div>
+      </div>
+      <div class="model-card" onclick="showReview('Sniper', this.querySelector('img'))">
+        <img src="images/sniper.jpg" alt="Sniper">
+        <div class="model-card-title">Sniper</div>
+      </div>
+      <div class="model-card" onclick="showReview('Fazzio', this.querySelector('img'))">
+        <img src="images/fazzio.jpg" alt="Fazzio">
+        <div class="model-card-title">Fazzio</div>
+      </div>
+      <div class="model-card" onclick="showReview('Mio Gear', this.querySelector('img'))">
+        <img src="images/miogear.jpg" alt="Mio Gear">
+        <div class="model-card-title">Mio Gear</div>
+      </div>
+      <div class="model-card" onclick="showReview('YZF-R3', this.querySelector('img'))">
+        <img src="images/r3.jpg" alt="YZF-R3">
+        <div class="model-card-title">YZF-R3</div>
+      </div>
+      <div class="model-card" onclick="showReview('YTX 125', this.querySelector('img'))">
+        <img src="images/ytx125.jpg" alt="YTX 125">
+        <div class="model-card-title">YTX 125</div>
+      </div>
+      <div class="model-card" onclick="showReview('MT-03', this.querySelector('img'))">
+        <img src="images/mt03.jpg" alt="MT-03">
+        <div class="model-card-title">MT-03</div>
+      </div>
+      <div class="model-card" onclick="showReview('WR155R', this.querySelector('img'))">
+        <img src="images/wr155r.jpg" alt="WR155R">
+        <div class="model-card-title">WR155R</div>
+      </div>
+      <div class="model-card" onclick="showReview('XSR900', this.querySelector('img'))">
+        <img src="images/xsr900.jpg" alt="XSR900">
+        <div class="model-card-title">XSR900</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Model Descriptions -->
+  <section class="desc-section">
+    <h2>Yamaha Model Descriptions</h2>
+    <ul>
+      <li><b>Aerox:</b> A sporty scooter designed for speed and style, perfect for young riders who want a dynamic look and agile performance in city traffic.</li>
+      <li><b>NMAX:</b> A premium urban scooter known for its comfort, fuel efficiency, and advanced features, making it ideal for daily commuting.</li>
+      <li><b>R15:</b> A compact sport bike inspired by Yamaha’s racing DNA, offering aggressive styling and high performance for thrill-seekers.</li>
+      <li><b>MT15:</b> A naked street bike with a bold design and responsive engine, great for riders who want a mix of power and urban maneuverability.</li>
+      <li><b>Sniper:</b> A sporty underbone motorcycle built for agility and speed, popular among riders who enjoy both city and spirited rides.</li>
+      <li><b>Fazzio:</b> A stylish and modern scooter with a retro touch, designed for convenience, fuel economy, and easy handling in urban settings.</li>
+      <li><b>Mio Gear:</b> A rugged and practical scooter made for tough roads and daily use, offering reliability and versatility for all riders.</li>
+      <li><b>YZF-R3:</b> A lightweight supersport motorcycle with a powerful engine, perfect for those who want to experience track-inspired performance on the road.</li>
+      <li><b>YTX 125:</b> A simple, durable, and affordable motorcycle, ideal for business, delivery, and everyday transportation needs.</li>
+      <li><b>MT-03:</b> A dynamic naked bike with a strong engine and agile handling, suitable for riders stepping up to bigger bikes.</li>
+      <li><b>WR155R:</b> A dual-sport motorcycle built for both on-road and off-road adventures, offering durability and versatility for explorers.</li>
+      <li><b>XSR900:</b> A retro-modern motorcycle that combines classic styling with cutting-edge technology and high performance for enthusiasts.</li>
+    </ul>
+  </section>
+
+  <!-- Modal for reviews, specs, and zoomed image -->
+  <div id="reviewModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeReview()" title="Close">&times;</button>
+      <div style="text-align:center;">
+        <img id="zoomedImg" src="" alt="Zoomed Model">
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:18px; justify-content:center;">
+        <div id="reviewContent" style="flex:1 1 220px; min-width:180px;"></div>
+        <div id="specsContent" style="flex:1 1 220px; min-width:180px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  function showReview(model, imgElem) {
+    var reviews = {
+      "Aerox": "<b>★★★★★</b><br><b>Aerox:</b> A sporty scooter designed for speed and style, perfect for young riders who want a dynamic look and agile performance in city traffic.<br>Aerox’s sporty look and power make every ride exciting.<br><i>– Bianca R.</i>",
+      "NMAX": "<b>★★★★★</b><br><b>NMAX:</b> A premium urban scooter known for its comfort, fuel efficiency, and advanced features, making it ideal for daily commuting.<br>The Yamaha NMAX is perfect for city rides. Smooth handling and great fuel efficiency!<br><i>– Alex D.</i>",
+      "R15": "<b>★★★★☆</b><br><b>R15:</b> A compact sport bike inspired by Yamaha’s racing DNA, offering aggressive styling and high performance for thrill-seekers.<br>R15 is a beast on the highway. The design turns heads everywhere I go.<br><i>– Carlo M.</i>",
+      "MT15": "<b>★★★★☆</b><br><b>MT15:</b> A naked street bike with a bold design and responsive engine, great for riders who want a mix of power and urban maneuverability.<br>MT15 offers a thrilling ride with its aggressive styling and responsive engine.<br><i>– Ethan S.</i>",
+      "Sniper": "<b>★★★★★</b><br><b>Sniper:</b> A sporty underbone motorcycle built for agility and speed, popular among riders who enjoy both city and spirited rides.<br>The Yamaha Sniper is agile and fast, perfect for both city and sporty rides.<br><i>– Mark L.</i>",
+      "Fazzio": "<b>★★★★☆</b><br><b>Fazzio:</b> A stylish and modern scooter with a retro touch, designed for convenience, fuel economy, and easy handling in urban settings.<br>Fazzio is stylish and economical, great for daily commutes and city errands.<br><i>– Jenny P.</i>",
+      "Mio Gear": "<b>★★★★☆</b><br><b>Mio Gear:</b> A rugged and practical scooter made for tough roads and daily use, offering reliability and versatility for all riders.<br>Mio Gear is tough and reliable, perfect for rough roads and heavy use.<br><i>– Rico S.</i>",
+      "YZF-R3": "<b>★★★★★</b><br><b>YZF-R3:</b> A lightweight supersport motorcycle with a powerful engine, perfect for those who want to experience track-inspired performance on the road.<br>The YZF-R3 is a true sport bike—fast, light, and fun to ride on twisty roads!<br><i>– Paolo V.</i>",
+      "YTX 125": "<b>★★★☆☆</b><br><b>YTX 125:</b> A simple, durable, and affordable motorcycle, ideal for business, delivery, and everyday transportation needs.<br>YTX 125 is affordable and easy to maintain, ideal for business and daily use.<br><i>– Lito G.</i>",
+      "MT-03": "<b>★★★★☆</b><br><b>MT-03:</b> A dynamic naked bike with a strong engine and agile handling, suitable for riders stepping up to bigger bikes.<br>MT-03 is nimble and powerful, a great entry to the MT naked bike family.<br><i>– Sam T.</i>",
+      "WR155R": "<b>★★★★☆</b><br><b>WR155R:</b> A dual-sport motorcycle built for both on-road and off-road adventures, offering durability and versatility for explorers.<br>WR155R is ready for adventure—excellent off-road performance and durability.<br><i>– Jomar E.</i>",
+      "XSR900": "<b>★★★★★</b><br><b>XSR900:</b> A retro-modern motorcycle that combines classic styling with cutting-edge technology and high performance for enthusiasts.<br>XSR900 combines retro style with modern power. A head-turner on any road!<br><i>– Mike D.</i>"
+    };
+    var specs = {
+      "Aerox": "<b>Specs:</b><br>Engine: 155cc, Liquid-cooled, 4-stroke<br>Max Power: 15.4 HP<br>Fuel System: Fuel Injection<br>ABS: Yes<br>Weight: 125 kg<br>Price: ₱124,000",
+      "NMAX": "<b>Specs:</b><br>Engine: 155cc, Liquid-cooled, 4-stroke<br>Max Power: 15.1 HP<br>Fuel System: Fuel Injection<br>ABS: Yes<br>Weight: 131 kg<br>Price: ₱151,900",
+      "R15": "<b>Specs:</b><br>Engine: 155cc, Liquid-cooled, 4-stroke<br>Max Power: 19.3 HP<br>Fuel System: Fuel Injection<br>ABS: Dual Channel<br>Weight: 142 kg<br>Price: ₱185,000",
+      "MT15": "<b>Specs:</b><br>Engine: 155cc, Liquid-cooled, 4-stroke<br>Max Power: 19 HP<br>Fuel System: Fuel Injection<br>ABS: Single Channel<br>Weight: 138 kg<br>Price: ₱178,000",
+      "Sniper": "<b>Specs:</b><br>Engine: 155cc, Liquid-cooled, 4-stroke, SOHC<br>Max Power: 17.9 HP<br>Fuel System: Fuel Injection<br>ABS: Single Channel<br>Weight: 119 kg<br>Price: ₱125,900",
+      "Fazzio": "<b>Specs:</b><br>Engine: 125cc, Air-cooled, 4-stroke<br>Max Power: 8.3 HP<br>Fuel System: Fuel Injection<br>ABS: No<br>Weight: 95 kg<br>Price: ₱92,900",
+      "Mio Gear": "<b>Specs:</b><br>Engine: 125cc, Air-cooled, 4-stroke<br>Max Power: 9.3 HP<br>Fuel System: Fuel Injection<br>ABS: No<br>Weight: 96 kg<br>Price: ₱77,400",
+      "YZF-R3": "<b>Specs:</b><br>Engine: 321cc, Liquid-cooled, 4-stroke, DOHC<br>Max Power: 41.4 HP<br>Fuel System: Fuel Injection<br>ABS: Dual Channel<br>Weight: 169 kg<br>Price: ₱290,000",
+      "YTX 125": "<b>Specs:</b><br>Engine: 125cc, Air-cooled, 4-stroke<br>Max Power: 8.2 HP<br>Fuel System: Carburetor<br>ABS: No<br>Weight: 113 kg<br>Price: ₱55,900",
+      "MT-03": "<b>Specs:</b><br>Engine: 321cc, Liquid-cooled, 4-stroke, DOHC<br>Max Power: 41.4 HP<br>Fuel System: Fuel Injection<br>ABS: Dual Channel<br>Weight: 168 kg<br>Price: ₱254,000",
+      "WR155R": "<b>Specs:</b><br>Engine: 155cc, Liquid-cooled, 4-stroke<br>Max Power: 16.4 HP<br>Fuel System: Fuel Injection<br>ABS: No<br>Weight: 134 kg<br>Price: ₱169,000",
+      "XSR900": "<b>Specs:</b><br>Engine: 890cc, Liquid-cooled, 3-cylinder, DOHC<br>Max Power: 117 HP<br>Fuel System: Fuel Injection<br>ABS: Dual Channel<br>Weight: 193 kg<br>Price: ₱729,000"
+    };
+    if (imgElem && imgElem.src) {
+      document.getElementById('zoomedImg').src = imgElem.src;
+    } else {
+      document.getElementById('zoomedImg').src = '';
+    }
+    document.getElementById('reviewContent').innerHTML = reviews[model] || "No review available.";
+    document.getElementById('specsContent').innerHTML = specs[model] || "";
+    document.getElementById('reviewModal').style.display = 'flex';
+  }
+  function closeReview() {
+    document.getElementById('reviewModal').style.display = 'none';
+  }
+  </script>
+</body>
+</html>
